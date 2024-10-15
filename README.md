@@ -5,6 +5,7 @@ Tento jednoduchý bash skript převádí DMARC XML report do čitelnějšího TX
 
 ## Funkce
 - Extrahuje důležité informace, jako je metadata reportu, informace o politice a jednotlivé záznamy.
+- Převádí Unix timestampy na čitelný formát data a času.
 - Používá `xmllint` k analýze XML dat.
 - Ukládá data do formátovaného a přehledného textového souboru.
 
@@ -33,6 +34,12 @@ chmod +x convert_dmarc.sh
 
 Skript standardně zpracuje soubor pojmenovaný `dmarc_report.xml`. Cestu k souboru můžete změnit úpravou proměnné `xml_file` ve skriptu.
 
+## Kompatibilita
+
+Skript detekuje operační systém a podle toho použije správný příkaz pro převod Unix timestampů:
+- **Linux**: Používá `date -d` pro převod timestampů.
+- **macOS**: Používá `date -r` pro převod timestampů.
+
 ## Výstup
 
 Skript vytvoří formátovaný textový soubor (`dmarc_report.txt`) s extrahovanými informacemi z DMARC reportu.
@@ -52,7 +59,7 @@ Metadata reportu:
 Org Name: Example Organization
 Email: dmarc@example.com
 Report ID: 123456789
-Date Range: 1609459200 to 1609545600
+Date Range: 2024-06-14 00:00:00 to 2024-06-14 23:59:59
 
 === Informace o politice ===
 ===========================
